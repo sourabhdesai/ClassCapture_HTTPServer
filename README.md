@@ -56,7 +56,13 @@ Look at `api/models/Course.js` for a concrete, up to date representation of this
 	- `sections`
 		- The sections under this course. This would things like Lecture, Discussion, or Lab sections for a particular course.
 		- Type: Collection of Sections (AKA `Section Array`)
-		- This can just be an array of Section IDs like `[1,3,67]`
+		- This can just be an array of Section IDs like `[1,3,67]`	
+	- `year`
+		- The year that the course is in (such as 2015)
+	- `semester`
+		- The semester, which can either be in ['fall', 'spring', 'semester']
+	- `key`
+		- Simply the concatenation of department+number+semester+year, used to prevent duplicate courses from being created.
 	
 ### Section
 Look at `api/models/Section.js` for a concrete, up to date representation of this model. A Section contains basic metadqta for a Section that is part of a course.
@@ -126,3 +132,4 @@ You can also do complex queries with the API. The [Sails JS Docs on this topic](
 - You must run the seed scripts in this order: `test/seed_scripts/Course.seed.test.js`, `test/seed_scripts/Section.seed.test.js`,`test/seed_scripts/Recording.seed.test.js`
 - For convenience, I've added a one-line npm script to the `package.json`. To run all the seed scripts at once, just run `npm run-script seed`.
 - Additionally, you can also just copy `test/seed_db_files/seeded_db.json` into the `.tmp/localDiskDb.db` file and unzip the contents of `test/seed_db_files/classcapture_videos.zip` into `~/classcapture_videos/`.
+- Each seed script should only be run once (to prevent duplicate classes from being created). A seed script will fail some tests if it has already been run before (for example the Course seed script creates some courses with hardcoded values).
